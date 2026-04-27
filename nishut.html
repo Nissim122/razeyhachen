@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>הצהרת נגישות — NAILD IT TEENS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Assistant', sans-serif; background: #f1ece6; color: #150510; }
+    h1, h2, h3 { line-height: 1.2; }
+    p, li { line-height: 1.8; }
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      right: 0;
+      background: #F0147D;
+      color: #fff;
+      padding: .75rem 1.5rem;
+      font-weight: 700;
+      font-size: 1rem;
+      z-index: 9999;
+      border-radius: 0 0 0 .5rem;
+      text-decoration: none;
+    }
+    .skip-link:focus { top: 0; outline: 3px solid #fff; outline-offset: 2px; }
+  </style>
+</head>
+<body class="min-h-screen">
+
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
+
+  <header class="py-6 px-5" style="background:#150510;">
+    <div class="max-w-2xl mx-auto flex items-center justify-between">
+      <a href="index.html" class="text-white font-800 text-lg hover:opacity-80 transition-opacity">רזי החן — NAILD IT TEENS</a>
+      <a href="index.html" class="text-white text-sm opacity-70 hover:opacity-100 transition-opacity">← חזרה לדף הבית</a>
+    </div>
+  </header>
+
+  <main id="main-content" tabindex="-1" class="max-w-2xl mx-auto px-5 py-12">
+
+    <h1 class="text-3xl font-800 mb-2" style="color:#F0147D;">הצהרת נגישות</h1>
+    <p class="text-gray-600 text-sm mb-10">עודכן לאחרונה: אפריל 2025</p>
+
+    <section class="bg-white rounded-2xl p-6 md:p-8 mb-6 shadow-sm">
+      <h2 class="text-xl font-700 mb-3">מחויבות לנגישות</h2>
+      <p class="text-gray-700">
+        אנו ב<strong>רזי החן — סטודיו ואקדמיה לציפורניים</strong> מחויבים להנגשת האתר לכלל האוכלוסייה, לרבות אנשים עם מוגבלויות, בהתאם לחוק שוויון זכויות לאנשים עם מוגבלות (תיקון מס' 2), תשע"ה–2005 ותקנות הנגישות לשירות (תיקון), תשע"ג–2013.
+      </p>
+    </section>
+
+    <section class="bg-white rounded-2xl p-6 md:p-8 mb-6 shadow-sm">
+      <h2 class="text-xl font-700 mb-3">רמת הנגישות</h2>
+      <p class="text-gray-700 mb-3">
+        האתר עומד ברובו בדרישות תקן ישראלי 5568 (המבוסס על WCAG 2.0 ברמה AA). הוטמעו הרכיבים הבאים:
+      </p>
+      <ul class="list-disc list-inside space-y-2 text-gray-700 text-sm">
+        <li>קישור "דלג לתוכן הראשי" בראש הדף</li>
+        <li>שפת הדף מוגדרת כעברית (<code lang="en">lang="he"</code>)</li>
+        <li>כיוון הקריאה מוגדר כימין-לשמאל (<code lang="en">dir="rtl"</code>)</li>
+        <li>תיאורי טקסט חלופיים (<code lang="en">aria-label</code>) לכל האלמנטים האינטראקטיביים</li>
+        <li>אלמנטים דקורטיביים מוסתרים מקוראי מסך (<code lang="en">aria-hidden</code>)</li>
+        <li>ניגודיות צבעים עומדת בדרישות WCAG AA לטקסט רגיל</li>
+        <li>ניווט מלא במקלדת עם מחווני מיקוד גלויים</li>
+        <li>גלריית הביקורות כוללת כפתור עצירה ואזור live region לקוראי מסך</li>
+        <li>כיבוד הגדרת <code lang="en">prefers-reduced-motion</code> — האנימציות מושבתות אוטומטית</li>
+        <li>אזורי ניווט (landmarks): <code lang="en">main</code>, <code lang="en">footer</code>, <code lang="en">header</code></li>
+        <li>כותרות בהיררכיה נכונה (H1, H2, H3)</li>
+        <li>תיאור מטרת כל קישור</li>
+      </ul>
+    </section>
+
+    <section class="bg-white rounded-2xl p-6 md:p-8 mb-6 shadow-sm">
+      <h2 class="text-xl font-700 mb-3">מגבלות נגישות ידועות</h2>
+      <ul class="list-disc list-inside space-y-2 text-gray-700 text-sm">
+        <li>אייקוני הכוכבים בביקורות (דקורטיביים) אינם עומדים בדרישות ניגודיות לרכיבי UI — הם מוסתרים מקוראי מסך ואינם מועברים מידע עצמאי.</li>
+        <li>גופן ה-Google Fonts נטען ממקור חיצוני — ייתכן עיכוב בטעינה בסביבות מסוימות.</li>
+      </ul>
+    </section>
+
+    <section class="bg-white rounded-2xl p-6 md:p-8 mb-6 shadow-sm">
+      <h2 class="text-xl font-700 mb-3">פנייה בנושא נגישות</h2>
+      <p class="text-gray-700 mb-2">
+        נתקלתם בבעיית נגישות או זקוקים לסיוע? פנו אלינו:
+      </p>
+      <ul class="space-y-1 text-gray-700 text-sm">
+        <li><strong>טלפון:</strong> <a href="tel:0548787702" class="underline" style="color:#C00060;">054-878-7702</a></li>
+        <li><strong>וואטסאפ:</strong> <a href="https://wa.me/972548787702" class="underline" style="color:#C00060;">שלחו הודעה</a></li>
+        <li><strong>כתובת:</strong> בצלאל 12, רמת גן, קומפלקס הבורסה</li>
+      </ul>
+      <p class="text-gray-600 text-sm mt-4">
+        נשתדל להשיב בתוך 5 ימי עסקים ולטפל בפנייה בהקדם האפשרי.
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="py-8 px-5 text-center text-sm" style="background:#150510; color:rgba(255,255,255,.65);">
+    <p>© 2025 רזי החן. <a href="index.html" class="underline hover:text-white transition-colors">חזרה לדף הבית</a></p>
+  </footer>
+
+</body>
+</html>
