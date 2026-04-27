@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NAILD IT TEENS — ציפורניים כמו בטיקטוק</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            pk:   '#F0147D',
+            pkd:  '#C00060',
+            pkl:  '#FFE0F0',
+            cream:'#f1ece6',
+            gold: '#C8973D',
+            ink:  '#150510',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Assistant', sans-serif;
+      background: #f1ece6;
+      color: #150510;
+      overflow-x: hidden;
+      padding-bottom: 72px;
+    }
+    @media (min-width: 768px) { body { padding-bottom: 0; } }
+
+    h1, h2, h3 { letter-spacing: -0.03em; line-height: 1.15; }
+    p { line-height: 1.7; }
+
+    /* ── Hero bg ── */
+    .hero-bg {
+      background: #f1ece6;
+    }
+
+    /* ── Grain ── */
+    .grain::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Primary button ── */
+    .btn-pk {
+      background: linear-gradient(135deg, #F0147D 0%, #C00060 100%);
+      color: #fff;
+      font-weight: 800;
+      border-radius: 9999px;
+      padding: 1rem 2rem;
+      font-size: 1.05rem;
+      display: inline-block;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(240,20,125,.38), 0 2px 8px rgba(240,20,125,.18);
+      transition: transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .22s ease;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-pk:hover  { transform: translateY(-3px) scale(1.03); box-shadow: 0 10px 32px rgba(240,20,125,.48); }
+    .btn-pk:active { transform: scale(.96); }
+    .btn-pk:focus-visible { outline: 3px solid #F0147D; outline-offset: 3px; }
+
+    /* ── Ghost button ── */
+    .btn-ghost {
+      border: 2px solid #ddd;
+      color: #666;
+      font-weight: 700;
+      border-radius: 9999px;
+      padding: .85rem 1.5rem;
+      font-size: .95rem;
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      transition: border-color .2s, color .2s, transform .2s cubic-bezier(.34,1.56,.64,1);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-ghost:hover  { border-color: #F0147D; color: #F0147D; transform: translateY(-2px); }
+    .btn-ghost:active { transform: scale(.97); }
+
+    /* ── Cards ── */
+    .card {
+      background: #fff;
+      border-radius: 1.25rem;
+      box-shadow: 0 2px 4px rgba(240,20,125,.04), 0 8px 24px rgba(240,20,125,.07), 0 20px 40px rgba(0,0,0,.05);
+    }
+    .card-star {
+      background: #fff;
+      border-radius: 1.25rem;
+      border: 2px solid rgba(240,20,125,.2);
+      box-shadow: 0 4px 8px rgba(240,20,125,.08), 0 16px 40px rgba(240,20,125,.14), 0 40px 64px rgba(240,20,125,.08);
+    }
+
+    /* ── Badge ── */
+    .badge {
+      background: linear-gradient(135deg, #F0147D 0%, #C00060 100%);
+      color: #fff;
+      border-radius: 9999px;
+      padding: .4rem 1.2rem;
+      font-size: .82rem;
+      font-weight: 800;
+      box-shadow: 0 4px 14px rgba(240,20,125,.42);
+      white-space: nowrap;
+    }
+
+    /* ── Carousel ── */
+    .carousel-wrap { overflow: hidden; }
+    .carousel-track {
+      display: flex;
+      transition: transform .48s cubic-bezier(.4,0,.2,1);
+    }
+    .carousel-slide { min-width: 100%; }
+    .carousel-dot {
+      width: 10px; height: 10px;
+      border-radius: 9999px;
+      background: rgba(240,20,125,.25);
+      border: none;
+      cursor: pointer;
+      transition: background .25s ease, transform .25s cubic-bezier(.34,1.56,.64,1);
+      padding: 0;
+    }
+    .carousel-dot.active { background: #F0147D; transform: scale(1.45); }
+    .carousel-arrow {
+      width: 44px; height: 44px;
+      border-radius: 9999px;
+      background: #fff;
+      border: 2px solid rgba(240,20,125,.2);
+      color: #F0147D;
+      font-size: 1.3rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(240,20,125,.14);
+      transition: background .2s, transform .2s cubic-bezier(.34,1.56,.64,1);
+      flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .carousel-arrow:hover  { background: #F0147D; color: #fff; transform: scale(1.08); }
+    .carousel-arrow:active { transform: scale(.93); }
+
+    /* ── FAQ ── */
+    details.faq summary { list-style: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    details.faq summary::-webkit-details-marker { display: none; }
+    details.faq summary .plus { transition: transform .3s cubic-bezier(.34,1.56,.64,1); display: inline-block; }
+    details.faq[open] summary .plus { transform: rotate(45deg); }
+
+    /* ── Pain card horizontal on mobile ── */
+    .pain-card { display: flex; align-items: flex-start; gap: .75rem; text-align: right; }
+    @media (min-width: 768px) { .pain-card { flex-direction: column; align-items: center; text-align: center; } }
+
+    /* ── Float ── */
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    .float  { animation: float 3.5s ease-in-out infinite; }
+
+    @keyframes pulse-ring {
+      0%   { transform:scale(.95); box-shadow:0 0 0 0 rgba(240,20,125,.5); }
+      70%  { transform:scale(1);   box-shadow:0 0 0 14px rgba(240,20,125,0); }
+      100% { transform:scale(.95); box-shadow:0 0 0 0 rgba(240,20,125,0); }
+    }
+    .pulse { animation: pulse-ring 2.2s ease infinite; }
+
+    /* ── Icon circles ── */
+    .icon-circle {
+      width: 44px; height: 44px;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, rgba(240,20,125,.1) 0%, rgba(240,20,125,.18) 100%);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: #F0147D;
+    }
+    .icon-circle-sm {
+      width: 36px; height: 36px;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, rgba(240,20,125,.1) 0%, rgba(240,20,125,.18) 100%);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: #F0147D;
+      font-weight: 800;
+      font-size: .75rem;
+    }
+
+    /* ── Star icon ── */
+    .star-icon { color: #C8973D; }
+
+    /* ── Sticky CTA bar (mobile only) ── */
+    .sticky-bar {
+      position: fixed;
+      bottom: 0; right: 0; left: 0;
+      z-index: 100;
+      background: rgba(255,255,255,.97);
+      backdrop-filter: blur(12px);
+      padding: .75rem 1rem;
+      box-shadow: 0 -4px 24px rgba(240,20,125,.12), 0 -1px 0 rgba(240,20,125,.08);
+    }
+    @media (min-width: 768px) { .sticky-bar { display: none; } }
+
+    /* ── WhatsApp float ── */
+    .wa-btn {
+      position: fixed;
+      bottom: 90px; left: 16px;
+      z-index: 99;
+      width: 52px; height: 52px;
+      border-radius: 9999px;
+      background: #25D366;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(37,211,102,.45);
+      transition: transform .2s cubic-bezier(.34,1.56,.64,1);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .wa-btn:hover  { transform: scale(1.1); }
+    .wa-btn:active { transform: scale(.93); }
+    @media (min-width: 768px) { .wa-btn { bottom: 24px; } }
+  </style>
+</head>
+
+<body>
+
+<!-- ══════════════════════════ HERO ══════════════════════════ -->
+<section class="hero-bg grain relative flex flex-col items-center justify-center text-center px-5 pt-14 pb-12 md:min-h-screen md:pt-24 md:pb-20 overflow-hidden">
+  <div class="relative z-10 w-full max-w-3xl mx-auto">
+
+    <p class="text-xs font-700 uppercase tracking-widest mb-5" style="color:#C8973D; letter-spacing:.2em;">
+      רזי החן · סטודיו ואקדמיה לציפורניים
+    </p>
+
+    <h1 class="text-4xl md:text-6xl lg:text-7xl font-800 mb-5 text-ink">
+      החופש הזה<br />
+      <span style="color:#F0147D;">הציפורניים שלך</span><br />
+      הולכות להיראות<br />
+      כמו בטיקטוק
+    </h1>
+
+    <p class="text-base md:text-xl text-gray-500 max-w-sm md:max-w-lg mx-auto mb-8">
+      קורס מקצועי לבניית ציפורניים ועיצוב לנערות —<br />
+      מהבסיס ועד לתוצאה המושלמת
+    </p>
+
+    <a href="#pricing" class="btn-pk pulse px-8">שריני מקום עכשיו ←</a>
+
+    <p class="text-sm text-gray-400 mt-4">גילאי 12–18 · אין צורך בניסיון קודם</p>
+  </div>
+
+  <!-- Subtle decorative lines -->
+  <div class="absolute top-16 right-12 hidden lg:block" style="opacity:.12;">
+    <svg width="60" height="60" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="28" stroke="#F0147D" stroke-width="1.5"/><circle cx="30" cy="30" r="18" stroke="#F0147D" stroke-width="1"/></svg>
+  </div>
+  <div class="absolute bottom-16 left-12 hidden lg:block" style="opacity:.10;">
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="#C8973D" stroke-width="1.5"/></svg>
+  </div>
+</section>
+
+<!-- ══════════════════════════ PAIN POINTS ══════════════════════════ -->
+<section class="py-14 md:py-24 px-5 bg-white">
+  <div class="max-w-3xl mx-auto text-center">
+    <h2 class="text-2xl md:text-4xl font-800 mb-3 text-ink">נמאס לך מציפורניים שנשברות תוך יומיים?</h2>
+    <p class="text-gray-500 md:text-lg mb-10 max-w-xl mx-auto">
+      את לא לבד — רוב הבנות מתמודדות בדיוק עם זה.<br />
+      <strong class="text-ink">אבל זה לא חייב להמשיך ככה.</strong>
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+      <div class="card p-5 md:p-7 pain-card">
+        <div class="icon-circle shrink-0">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+        </div>
+        <div>
+          <h3 class="font-700 text-base md:text-lg mb-1">ציפורניים שנשברות</h3>
+          <p class="text-gray-500 text-sm">אחרי יומיים הכל מתפרק והכסף ירד לטמיון</p>
+        </div>
+      </div>
+      <div class="card p-5 md:p-7 pain-card">
+        <div class="icon-circle shrink-0">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div>
+          <h3 class="font-700 text-base md:text-lg mb-1">עלויות שמטפסות</h3>
+          <p class="text-gray-500 text-sm">כל שבועיים לסלון — מאות שקלים שנעלמים</p>
+        </div>
+      </div>
+      <div class="card p-5 md:p-7 pain-card">
+        <div class="icon-circle shrink-0">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        </div>
+        <div>
+          <h3 class="font-700 text-base md:text-lg mb-1">תוצאות לא מקצועיות</h3>
+          <p class="text-gray-500 text-sm">מנסות לבד בבית ולא מצליחות לקבל את הלוק של טיקטוק</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ CURRICULUM ══════════════════════════ -->
+<section class="py-14 md:py-24 px-5" style="background:#f1ece6;">
+  <div class="max-w-3xl mx-auto">
+    <div class="text-center mb-10 md:mb-14">
+      <h2 class="text-2xl md:text-4xl font-800 text-ink mb-2">מה תלמדי בסדנה?</h2>
+      <p class="text-gray-500 md:text-lg">את כל הסודות, מהבסיס ועד לתוצאה המושלמת</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
+      <div class="card flex items-start gap-3 p-4 md:p-6">
+        <span class="icon-circle-sm">01</span>
+        <div>
+          <h3 class="font-700 mb-1">הכנת ציפורניים מקצועית</h3>
+          <p class="text-gray-500 text-sm">בסיס מושלם שמבטיח אחיזה ועמידות של שבועות</p>
+        </div>
+      </div>
+      <div class="card flex items-start gap-3 p-4 md:p-6">
+        <span class="icon-circle-sm">02</span>
+        <div>
+          <h3 class="font-700 mb-1">מניקור מותאם לסוג עור</h3>
+          <p class="text-gray-500 text-sm">טיפול מקצועי שמרגיש כמו ספא אמיתי</p>
+        </div>
+      </div>
+      <div class="card flex items-start gap-3 p-4 md:p-6">
+        <span class="icon-circle-sm">03</span>
+        <div>
+          <h3 class="font-700 mb-1">שיטת בנייה ייחודית</h3>
+          <p class="text-gray-500 text-sm">הטכניקה הסודית שמייצרת עובי ואורך מושלמים</p>
+        </div>
+      </div>
+      <div class="card flex items-start gap-3 p-4 md:p-6">
+        <span class="icon-circle-sm">04</span>
+        <div>
+          <h3 class="font-700 mb-1">פילה צורה מושלמת</h3>
+          <p class="text-gray-500 text-sm">כל סגנון וצורה שתרצי — שקד, ריבוע, מחודד</p>
+        </div>
+      </div>
+      <div class="card flex items-start gap-3 p-4 md:p-6">
+        <span class="icon-circle-sm">05</span>
+        <div>
+          <h3 class="font-700 mb-1">סגירה לעמידות 3+ שבועות</h3>
+          <p class="text-gray-500 text-sm">הסוד לציפורניים שלא נשברות ולא מתקלפות</p>
+        </div>
+      </div>
+      <div class="card flex items-start gap-3 p-4 md:p-6" style="border:2px solid rgba(240,20,125,.2);">
+        <span class="icon-circle-sm" style="background:linear-gradient(135deg,#F0147D,#C00060); color:#fff;">06</span>
+        <div>
+          <h3 class="font-700 mb-1" style="color:#F0147D;">בונוס: סדנת צ'ארמים וקישוטים</h3>
+          <p class="text-gray-500 text-sm">עיצובים שישדרגו את הלוק לרמת ה-TikTok</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ PRICING ══════════════════════════ -->
+<section id="pricing" class="py-16 md:py-28 px-5 bg-white scroll-mt-4">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-10 md:mb-16">
+      <h2 class="text-2xl md:text-4xl font-800 text-ink mb-2">בחרי את המסלול שלך</h2>
+      <p class="text-gray-500 md:text-lg">שתי אפשרויות — אחת מהן כמעט חינם לעומת השנייה</p>
+    </div>
+
+    <div class="flex flex-col md:grid md:grid-cols-2 gap-6 md:gap-8 items-start">
+
+      <!-- MAIN PRODUCT first on mobile (899) — md: second via order -->
+      <div class="card-star p-6 md:p-8 relative md:order-2">
+        <div class="absolute -top-4 right-1/2 translate-x-1/2">
+          <span class="badge">הכי משתלם</span>
+        </div>
+
+        <div class="mt-3 mb-1">
+          <span class="text-xs font-700 uppercase tracking-widest" style="color:#F0147D;">סדנה</span>
+        </div>
+        <h3 class="text-xl md:text-2xl font-800 mb-2 text-ink">סדנת צ'ארמים וקישוטים</h3>
+        <p class="text-gray-500 text-sm mb-5">4 שעות עיצוב מקצועי — תלמדי ליצור קישוטים מדהימים לציפורניים</p>
+
+        <div class="mb-2">
+          <p class="font-800" style="font-size:3.5rem; line-height:1; color:#F0147D;">₪899</p>
+          <p class="text-sm text-gray-400 mt-1">לעומת ₪2,280 לקורס המלא — חיסכון של ₪1,381</p>
+        </div>
+
+        <div class="my-5 h-px" style="background:rgba(240,20,125,.15);"></div>
+
+        <ul class="space-y-2 mb-7 text-sm text-gray-600">
+          <li class="flex items-center gap-2"><span style="color:#F0147D;">✓</span> 4 שעות סדנה אינטנסיבית</li>
+          <li class="flex items-center gap-2"><span style="color:#F0147D;">✓</span> צ'ארמים, מדבקות, נאילארט מקצועי</li>
+          <li class="flex items-center gap-2"><span style="color:#F0147D;">✓</span> תוצאות מיידיות ומרהיבות</li>
+          <li class="flex items-center gap-2 font-700" style="color:#F0147D;">✓ מקומות מוגבלים — ממהרות!</li>
+        </ul>
+
+        <a href="https://wa.me/9720548787702" class="btn-pk block w-full text-center text-lg py-4">לשריון מקום ←</a>
+      </div>
+
+      <!-- ANCHOR — expensive, mobile: second, desktop: first via order -->
+      <div class="card p-6 md:p-8 md:order-1" style="opacity:.88;">
+        <div class="mb-2">
+          <span class="text-xs font-700 uppercase tracking-widest text-gray-400">קורס מלא</span>
+        </div>
+        <h3 class="text-xl md:text-2xl font-800 mb-2 text-ink">NAILD IT TEENS</h3>
+        <p class="text-gray-500 text-sm mb-5">קורס מקצועי מלא לבניית ציפורניים — 6 שעות לימוד בשיטת GEL EX</p>
+
+        <div class="mb-6">
+          <p class="text-gray-400 line-through text-base mb-1">₪3,690</p>
+          <p class="font-800 text-gray-600" style="font-size:2.6rem; line-height:1;">₪2,280</p>
+        </div>
+
+        <ul class="space-y-2 mb-7 text-sm text-gray-500">
+          <li class="flex items-center gap-2"><span class="text-gray-400">✓</span> 6 שעות לימוד מקצועיות (GEL EX)</li>
+          <li class="flex items-center gap-2"><span class="text-gray-400">✓</span> הכנה, מניקור, בנייה, פילה, סגירה</li>
+          <li class="flex items-center gap-2"><span class="text-gray-400">✓</span> 3 חודשי ליווי אישי לאחר הקורס</li>
+          <li class="flex items-center gap-2"><span class="text-gray-400">✓</span> כולל סדנת צ'ארמים (בונוס)</li>
+        </ul>
+
+        <a href="https://wa.me/9720548787702?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%A0%D7%95%D7%A1%D7%A4%D7%99%D7%9D%20%D7%A2%D7%9C%20%D7%A7%D7%95%D7%A8%D7%A1%20NAILD%20IT%20TEENS" class="btn-ghost">לפרטים נוספים</a>
+      </div>
+    </div>
+
+    <p class="text-center text-xs md:text-sm text-gray-400 mt-8">
+      רמת גן, בצלאל 12 — קומפלקס הבורסה &nbsp;|&nbsp; גילאי 12–18 &nbsp;|&nbsp; אין צורך בניסיון
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════ TESTIMONIALS ══════════════════════════ -->
+<section class="py-14 md:py-24 px-5" style="background:#f1ece6;">
+  <div class="max-w-2xl mx-auto">
+    <div class="text-center mb-10 md:mb-14">
+      <h2 class="text-2xl md:text-4xl font-800 text-ink mb-2">מה אומרות הבנות?</h2>
+      <p class="text-gray-500 text-sm md:text-base">ביקורות אמיתיות מתלמידות אמיתיות</p>
+    </div>
+
+    <div id="carousel">
+      <div class="carousel-wrap">
+        <div class="carousel-track" id="track">
+
+          <!-- Slide 1 — Shelly Hidna -->
+          <div class="carousel-slide px-1">
+            <div class="card p-6 md:p-8 text-center">
+              <div class="flex justify-center gap-1 mb-4">
+                <svg class="star-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <p class="text-gray-600 text-sm md:text-base mb-5 italic">
+                "תמיד הייתי עושה לעצמי ציפורניים אבל אף פעם לא יצא כזה יפה.
+                אחרי הסדנה של רזי הציפורניים שלי נראות ממש מקצועיות ועמדו לי שלושה שבועות!"
+              </p>
+              <div class="flex items-center justify-center gap-3">
+                <div class="w-9 h-9 rounded-full flex items-center justify-center font-800 text-white text-sm shrink-0" style="background:linear-gradient(135deg,#F0147D,#C00060);">ש</div>
+                <div class="text-right">
+                  <p class="font-700 text-sm text-ink">שלי הידנה</p>
+                  <p class="text-xs text-gray-400">תלמידת הסדנה</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="carousel-slide px-1">
+            <div class="card p-6 md:p-8 text-center">
+              <div class="flex justify-center gap-1 mb-4">
+                <svg class="star-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <p class="text-gray-600 text-sm md:text-base mb-5 italic">
+                "חשבתי שזה יהיה מסובך מדי בשבילי, אבל רזי מסבירה הכל בצורה כל כך ברורה ומהנה.
+                כיף מטורף ואני כבר עושה ציפורניים לכל החברות שלי!"
+              </p>
+              <div class="flex items-center justify-center gap-3">
+                <div class="w-9 h-9 rounded-full flex items-center justify-center font-800 text-white text-sm shrink-0" style="background:linear-gradient(135deg,#F0147D,#C00060);">נ</div>
+                <div class="text-right">
+                  <p class="font-700 text-sm text-ink">נועה, בת 15</p>
+                  <p class="text-xs text-gray-400">תלמידת הסדנה</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="carousel-slide px-1">
+            <div class="card p-6 md:p-8 text-center">
+              <div class="flex justify-center gap-1 mb-4">
+                <svg class="star-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <p class="text-gray-600 text-sm md:text-base mb-5 italic">
+                "כל החברות שלי שואלות מי עשה לי ציפורניים. הן לא מאמינות שעשיתי לבד!
+                השקעה הכי טובה שעשיתי — מומלץ בחום לכל בנות הגיל שלי."
+              </p>
+              <div class="flex items-center justify-center gap-3">
+                <div class="w-9 h-9 rounded-full flex items-center justify-center font-800 text-white text-sm shrink-0" style="background:linear-gradient(135deg,#F0147D,#C00060);">ת</div>
+                <div class="text-right">
+                  <p class="font-700 text-sm text-ink">תמר, בת 14</p>
+                  <p class="text-xs text-gray-400">תלמידת הסדנה</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="flex items-center justify-center gap-4 mt-6">
+        <button class="carousel-arrow" id="prev" aria-label="הקודמת">‹</button>
+        <div class="flex gap-2 items-center" id="dots">
+          <button class="carousel-dot active" data-idx="0" aria-label="שקופית 1"></button>
+          <button class="carousel-dot" data-idx="1" aria-label="שקופית 2"></button>
+          <button class="carousel-dot" data-idx="2" aria-label="שקופית 3"></button>
+        </div>
+        <button class="carousel-arrow" id="next" aria-label="הבאה">›</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ FAQ ══════════════════════════ -->
+<section class="py-14 md:py-24 px-5 bg-white">
+  <div class="max-w-2xl mx-auto">
+    <div class="text-center mb-10 md:mb-14">
+      <h2 class="text-2xl md:text-4xl font-800 text-ink">שאלות נפוצות</h2>
+    </div>
+
+    <div class="space-y-3 md:space-y-4">
+
+      <details class="faq card overflow-hidden">
+        <summary class="flex justify-between items-center px-5 py-4 md:p-6 font-700 text-ink text-sm md:text-base min-h-[56px]">
+          <span>איפה הסדנה מתקיימת?</span>
+          <span class="plus text-2xl leading-none mr-3 shrink-0" style="color:#F0147D;">+</span>
+        </summary>
+        <div class="px-5 pb-5 md:px-6 md:pb-6 text-gray-500 text-sm">
+          רמת גן, רחוב בצלאל 12, קומפלקס הבורסה.<br />
+          מומלץ להגיע בתחבורה ציבורית. יש חניית פנגו בסביבה (מקומות מוגבלים).
+        </div>
+      </details>
+
+      <details class="faq card overflow-hidden">
+        <summary class="flex justify-between items-center px-5 py-4 md:p-6 font-700 text-ink text-sm md:text-base min-h-[56px]">
+          <span>מה גיל המינימום?</span>
+          <span class="plus text-2xl leading-none mr-3 shrink-0" style="color:#F0147D;">+</span>
+        </summary>
+        <div class="px-5 pb-5 md:px-6 md:pb-6 text-gray-500 text-sm">
+          הסדנה מיועדת לבנות בגילאי 12–18.<br />
+          אין צורך בניסיון קודם בכלל — מתחילות ממש מאפס ומגיעות לתוצאות מקצועיות!
+        </div>
+      </details>
+
+      <details class="faq card overflow-hidden">
+        <summary class="flex justify-between items-center px-5 py-4 md:p-6 font-700 text-ink text-sm md:text-base min-h-[56px]">
+          <span>האם יש ליווי לאחר הסדנה?</span>
+          <span class="plus text-2xl leading-none mr-3 shrink-0" style="color:#F0147D;">+</span>
+        </summary>
+        <div class="px-5 pb-5 md:px-6 md:pb-6 text-gray-500 text-sm">
+          בקורס המלא NAILD IT TEENS יש <strong>3 חודשי ליווי אישי</strong> לאחר הקורס.<br />
+          בסדנת הצ'ארמים ניתן לפנות אלינו בכל שאלה לאחר הסדנה.
+        </div>
+      </details>
+
+      <details class="faq card overflow-hidden">
+        <summary class="flex justify-between items-center px-5 py-4 md:p-6 font-700 text-ink text-sm md:text-base min-h-[56px]">
+          <span>מה צריך להביא לסדנה?</span>
+          <span class="plus text-2xl leading-none mr-3 shrink-0" style="color:#F0147D;">+</span>
+        </summary>
+        <div class="px-5 pb-5 md:px-6 md:pb-6 text-gray-500 text-sm">
+          לא צריך להביא כלום! כל הציוד המקצועי מסופק על ידינו.<br />
+          רק לבוא עם חיוך, חשק ללמוד, וציפורניים נקיות.
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ FINAL CTA ══════════════════════════ -->
+<section class="py-20 md:py-28 px-5 text-center relative overflow-hidden grain" style="background:#150510;">
+  <div class="relative z-10 max-w-xl mx-auto">
+    <p class="text-white/40 text-xs uppercase tracking-widest mb-4">רזי החן · סטודיו ואקדמיה לציפורניים</p>
+    <h2 class="text-3xl md:text-5xl font-800 text-white mb-4">מוכנה להתחיל?</h2>
+    <p class="text-white/65 md:text-lg mb-8 max-w-sm mx-auto">
+      מקומות מוגבלים — שריני את מקומך עכשיו<br />
+      ותהיי הבאה שמציגה ציפורניים מהממות
+    </p>
+    <a href="#pricing" class="btn-pk inline-block text-base md:text-lg px-10 md:px-14 py-4">
+      לשריון מקום ←
+    </a>
+  </div>
+</section>
+
+<!-- ══════════════════════════ FOOTER ══════════════════════════ -->
+<footer class="py-12 px-5 text-center" style="background:#150510; color:rgba(255,255,255,.65);">
+  <div class="max-w-xl mx-auto">
+    <p class="text-white font-800 text-xl mb-1">רזי החן</p>
+    <p class="text-sm mb-7">סטודיו ואקדמיה לציפורניים</p>
+
+    <div class="flex flex-wrap justify-center gap-5 text-sm mb-7">
+      <a href="tel:0548787702" class="flex items-center gap-2 hover:text-white transition-colors">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.7 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.61 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        054-878-7702
+      </a>
+      <span class="opacity-30 hidden md:inline">|</span>
+      <span class="flex items-center gap-2">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        בצלאל 12, רמת גן
+      </span>
+    </div>
+
+    <div class="flex justify-center gap-3 mb-7">
+      <a href="#" aria-label="פייסבוק" class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-700 text-white" style="background:rgba(255,255,255,.1);">f</a>
+      <a href="#" aria-label="אינסטגרם" class="w-10 h-10 rounded-full flex items-center justify-center text-white" style="background:rgba(255,255,255,.1);">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a href="https://wa.me/9720548787702" aria-label="וואטסאפ" class="w-10 h-10 rounded-full flex items-center justify-center text-white" style="background:rgba(255,255,255,.1);">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </a>
+    </div>
+
+    <div class="h-px mb-6" style="background:rgba(255,255,255,.08);"></div>
+    <p class="text-xs opacity-35">© 2024 רזי החן. כל הזכויות שמורות. &nbsp;|&nbsp; <a href="#" class="hover:opacity-60 transition-opacity">מדיניות פרטיות</a></p>
+  </div>
+</footer>
+
+<!-- ══════════════════════════ STICKY BOTTOM BAR (mobile only) ══════════════════════════ -->
+<div class="sticky-bar">
+  <a href="#pricing" class="btn-pk block w-full text-center text-base py-3">
+    שריני מקום — ₪899 ←
+  </a>
+</div>
+
+<!-- ══════════════════════════ WHATSAPP FLOAT ══════════════════════════ -->
+<a href="https://wa.me/9720548787702" class="wa-btn" aria-label="פנייה בוואטסאפ">
+  <svg width="26" height="26" fill="#fff" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- ══════════════════════════ JS ══════════════════════════ -->
+<script>
+  /* ── Carousel ── */
+  const track  = document.getElementById('track');
+  const dots   = document.querySelectorAll('.carousel-dot');
+  const slides = document.querySelectorAll('.carousel-slide');
+  let current = 0, timer, touchX0 = 0;
+
+  function goTo(idx) {
+    current = (idx + slides.length) % slides.length;
+    track.style.transform = `translateX(${current * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  function advance() { goTo(current + 1); }
+
+  function resetTimer() {
+    clearInterval(timer);
+    timer = setInterval(advance, 4200);
+  }
+
+  document.getElementById('next').addEventListener('click', () => { goTo(current + 1); resetTimer(); });
+  document.getElementById('prev').addEventListener('click', () => { goTo(current - 1); resetTimer(); });
+  dots.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.idx); resetTimer(); }));
+
+  /* Touch swipe */
+  const wrap = document.querySelector('.carousel-wrap');
+  wrap.addEventListener('touchstart', e => { touchX0 = e.changedTouches[0].clientX; }, { passive: true });
+  wrap.addEventListener('touchend', e => {
+    const diff = touchX0 - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 44) {
+      diff > 0 ? goTo(current + 1) : goTo(current - 1);
+      resetTimer();
+    }
+  }, { passive: true });
+
+  resetTimer();
+
+  /* ── Hide sticky bar when pricing is visible ── */
+  const pricingEl = document.getElementById('pricing');
+  const stickyBar = document.querySelector('.sticky-bar');
+  const io = new IntersectionObserver(entries => {
+    stickyBar.style.opacity = entries[0].isIntersecting ? '0' : '1';
+    stickyBar.style.pointerEvents = entries[0].isIntersecting ? 'none' : 'auto';
+  }, { threshold: 0.2 });
+  io.observe(pricingEl);
+</script>
+
+</body>
+</html>
