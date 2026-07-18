@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NAILD IT TEENS — ציפורניים כמו בטיקטוק</title>
+  <link rel="icon" href="logo.png" />
+  <link rel="apple-touch-icon" href="logo.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
@@ -16,7 +18,7 @@
             pk:   '#F0147D',
             pkd:  '#C00060',
             pkl:  '#FFE0F0',
-            cream:'#f1ece6',
+            cream:'#F6F3F2',
             gold: '#C8973D',
             ink:  '#150510',
           }
@@ -31,7 +33,7 @@
 
     body {
       font-family: 'Assistant', sans-serif;
-      background: #f1ece6;
+      background: #F6F3F2;
       color: #150510;
       overflow-x: hidden;
       padding-bottom: 72px;
@@ -43,7 +45,7 @@
 
     /* ── Hero bg ── */
     .hero-bg {
-      background: #f1ece6;
+      background: #F6F3F2;
     }
 
     /* ── Grain ── */
@@ -119,6 +121,7 @@
 
     /* ── Carousel ── */
     .carousel-wrap { overflow: hidden; }
+    .carousel-slide .card { box-shadow: none; border: 1px solid rgba(240,20,125,.12); }
     .carousel-track {
       display: flex;
       transition: transform .48s cubic-bezier(.4,0,.2,1);
@@ -226,6 +229,80 @@
     .wa-btn:focus-visible { outline: 3px solid #25D366; outline-offset: 3px; }
     @media (min-width: 768px) { .wa-btn { bottom: 24px; } }
 
+    /* ── WhatsApp popup ── */
+    .wa-popup {
+      position: fixed;
+      bottom: 152px; left: 16px;
+      z-index: 100;
+      width: 288px;
+      max-width: calc(100vw - 32px);
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 12px 40px rgba(21,5,16,.18), 0 2px 8px rgba(21,5,16,.08);
+      overflow: hidden;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(16px) scale(.96);
+      transform-origin: bottom left;
+      transition: opacity .25s ease, transform .25s cubic-bezier(.34,1.56,.64,1), visibility .25s;
+      cursor: pointer;
+    }
+    .wa-popup.is-open { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+    @media (min-width: 768px) { .wa-popup { bottom: 86px; } }
+
+    .wa-popup-head {
+      display: flex; align-items: center; gap: .6rem;
+      padding: .85rem 1rem;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: #fff;
+    }
+    .wa-popup-avatar {
+      flex-shrink: 0; width: 36px; height: 36px;
+      border-radius: 9999px;
+      background: rgba(255,255,255,.2);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .wa-popup-info { flex: 1; min-width: 0; text-align: right; }
+    .wa-popup-info strong { display: block; font-size: .9rem; font-weight: 700; }
+    .wa-popup-info span { display: block; font-size: .72rem; opacity: .85; }
+    .wa-popup-close {
+      flex-shrink: 0; width: 24px; height: 24px;
+      border: none; background: transparent; color: #fff;
+      font-size: 1.3rem; line-height: 1; cursor: pointer;
+      border-radius: 9999px;
+      transition: background .15s;
+    }
+    .wa-popup-close:hover { background: rgba(255,255,255,.2); }
+    .wa-popup-close:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+    .wa-popup-msg {
+      margin: 0; padding: .9rem 1rem .3rem;
+      font-size: .88rem; line-height: 1.6; color: #150510;
+    }
+    .wa-popup-cta {
+      display: flex; align-items: center; justify-content: center; gap: .5rem;
+      margin: .8rem 1rem 1rem;
+      padding: .65rem 1rem;
+      background: #25D366; color: #fff;
+      font-weight: 700; font-size: .88rem;
+      border-radius: 9999px;
+      text-decoration: none;
+      transition: transform .15s, box-shadow .15s;
+      box-shadow: 0 4px 14px rgba(37,211,102,.35);
+    }
+    .wa-popup-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37,211,102,.45); }
+    .wa-popup-cta:focus-visible { outline: 3px solid #128C7E; outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) {
+      .wa-popup { transition: opacity .01ms; transform: none; }
+    }
+
+    /* ── Header / nav ── */
+    #site-header { background: rgba(246,243,242,.92); border-bottom: 1px solid rgba(240,20,125,.1); position: sticky; }
+    #nav-menu { position: absolute; top: 100%; right: 0; left: 0; box-shadow: 0 12px 24px rgba(21,5,16,.1); }
+    .nav-link { color: #150510; text-decoration: none; border-bottom: 1px solid rgba(240,20,125,.08); transition: color .2s; }
+    .nav-link:last-child { border-bottom: none; }
+    .nav-link:hover, .nav-link:focus-visible { color: #F0147D; }
+    #nav-toggle:focus-visible, .nav-link:focus-visible { outline: 3px solid #F0147D; outline-offset: 2px; }
+
     /* ── Skip link ── */
     .skip-link {
       position: absolute;
@@ -274,26 +351,56 @@
 
 <a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
 
+<!-- ══════════════════════════ HEADER / NAV ══════════════════════════ -->
+<header id="site-header" class="sticky top-0 z-40">
+  <div class="max-w-5xl mx-auto px-5 flex items-center justify-between" style="height:64px;">
+    <a href="#home" class="flex items-center gap-2 font-800 text-ink" style="font-size:1.05rem; text-decoration:none;">
+      <span class="rounded-full overflow-hidden flex items-center justify-center shrink-0" style="width:36px; height:36px; background:#F6F3F2;">
+        <img src="logo.png" alt="" class="w-full h-full object-cover" aria-hidden="true" />
+      </span>
+      רזי החן
+    </a>
+
+    <button id="nav-toggle" class="flex items-center justify-center rounded-full" style="width:44px; height:44px;" aria-expanded="false" aria-controls="nav-menu" aria-label="פתיחת תפריט ניווט">
+      <svg id="nav-icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#150510" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <svg id="nav-icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#150510" stroke-width="2" stroke-linecap="round" class="hidden" aria-hidden="true" focusable="false"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <nav id="nav-menu" class="hidden border-t" style="border-color: rgba(240,20,125,.1); background:#fff;" aria-label="ניווט ראשי">
+    <ul class="flex flex-col px-5 py-1 text-base font-700">
+      <li><a href="#home" class="nav-link block py-3">דף הבית</a></li>
+      <li><a href="#pricing" class="nav-link block py-3">קורסים</a></li>
+      <li><a href="#testimonials" class="nav-link block py-3">המלצות</a></li>
+      <li><a href="#contact" class="nav-link block py-3">יצירת קשר</a></li>
+    </ul>
+  </nav>
+</header>
+
 <main id="main-content" tabindex="-1">
 
 <!-- ══════════════════════════ HERO ══════════════════════════ -->
-<section class="hero-bg grain relative flex flex-col items-center justify-center text-center px-5 pt-14 pb-12 md:min-h-screen md:pt-24 md:pb-20 overflow-hidden">
+<section id="home" class="hero-bg grain relative flex flex-col items-center justify-center text-center px-5 pt-7 pb-12 md:min-h-screen md:pt-12 md:pb-20 overflow-hidden scroll-mt-16">
   <div class="relative z-10 w-full max-w-3xl mx-auto">
 
-    <p class="text-xs font-700 uppercase tracking-widest mb-5" style="color:#7A6020; letter-spacing:.2em;">
-      רזי החן · סטודיו ואקדמיה לציפורניים
+    <div class="mx-auto rounded-full overflow-hidden flex items-center justify-center" style="width:110px; height:110px; background:#F6F3F2; margin-bottom:3px;">
+      <img src="logo.png" alt="לוגו רזי החן" width="110" height="110" class="w-full h-full object-cover" />
+    </div>
+
+    <p class="font-700 uppercase tracking-widest mb-5" style="color:#7A6020; letter-spacing:.2em; font-size:0.975rem; line-height:1.2;">
+      <strong class="font-800">רזי החן</strong><br />· סטודיו ואקדמיה לציפורניים
     </p>
 
     <h1 class="text-4xl md:text-6xl lg:text-7xl font-800 mb-5 text-ink">
-      החופש הזה<br />
-      <span style="color:#F0147D;">הציפורניים שלך</span><br />
-      הולכות להיראות<br />
-      כמו בטיקטוק
+      הדור הבא של<br />
+      <span style="color:#F0147D;">בונות הציפורניים</span><br />
+      מתחיל כאן
     </h1>
 
     <p class="text-base md:text-xl text-gray-600 max-w-sm md:max-w-lg mx-auto mb-8">
-      קורס מקצועי לבניית ציפורניים ועיצוב לנערות —<br />
-      מהבסיס ועד לתוצאה המושלמת
+      קורס NAIL IT TEENS — GEL-X<br />
+      הכולל סדנת צ'ארמים במתנה<br />
+      ההרשמה למחזור הקרוב בעיצומה
     </p>
 
     <a href="#pricing" class="btn-pk pulse px-8">שריני מקום עכשיו ←</a>
@@ -313,38 +420,38 @@
 <!-- ══════════════════════════ PAIN POINTS ══════════════════════════ -->
 <section class="py-14 md:py-24 px-5 bg-white">
   <div class="max-w-3xl mx-auto text-center">
-    <h2 class="text-2xl md:text-4xl font-800 mb-3 text-ink">נמאס לך מציפורניים שנשברות תוך יומיים?</h2>
+    <h2 class="text-2xl md:text-4xl font-800 mb-3 text-ink">נמאס לך שהציפורניים שלך אף פעם<br />לא מחזיקות?</h2>
     <p class="text-gray-500 md:text-lg mb-10 max-w-xl mx-auto">
-      את לא לבד — רוב הבנות מתמודדות בדיוק עם זה.<br />
+      רוב הבנות שהגיעו אלינו הרגישו בדיוק כך לפני הקורס.<br />
       <strong class="text-ink">אבל זה לא חייב להמשיך ככה.</strong>
     </p>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
       <div class="card p-5 md:p-7 pain-card">
         <div class="icon-circle shrink-0" aria-hidden="true">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
         </div>
         <div>
-          <h3 class="font-700 text-base md:text-lg mb-1">ציפורניים שנשברות</h3>
-          <p class="text-gray-500 text-sm">אחרי יומיים הכל מתפרק והכסף ירד לטמיון</p>
+          <h3 class="font-700 text-base md:text-lg mb-1">נשבר מהר</h3>
+          <p class="text-gray-500 text-sm">יום אחרי שהשקעת הכל נסדק ומתקלף</p>
         </div>
       </div>
       <div class="card p-5 md:p-7 pain-card">
         <div class="icon-circle shrink-0" aria-hidden="true">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
         </div>
         <div>
-          <h3 class="font-700 text-base md:text-lg mb-1">עלויות שמטפסות</h3>
-          <p class="text-gray-500 text-sm">כל שבועיים לסלון — מאות שקלים שנעלמים</p>
+          <h3 class="font-700 text-base md:text-lg mb-1">תוצאה לא נקיה</h3>
+          <p class="text-gray-500 text-sm">מנסה עיצובים בעצמך אבל זה לא נראה נקי ומקצועי</p>
         </div>
       </div>
       <div class="card p-5 md:p-7 pain-card">
         <div class="icon-circle shrink-0" aria-hidden="true">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
         </div>
         <div>
-          <h3 class="font-700 text-base md:text-lg mb-1">תוצאות לא מקצועיות</h3>
-          <p class="text-gray-500 text-sm">מנסות לבד בבית ולא מצליחות לקבל את הלוק של טיקטוק</p>
+          <h3 class="font-700 text-base md:text-lg mb-1">שוב ושוב להוציא כסף</h3>
+          <p class="text-gray-500 text-sm">כל פעם מחדש לשלם על בניה חדשה</p>
         </div>
       </div>
     </div>
@@ -352,11 +459,11 @@
 </section>
 
 <!-- ══════════════════════════ CURRICULUM ══════════════════════════ -->
-<section class="py-14 md:py-24 px-5" style="background:#f1ece6;">
+<section class="py-14 md:py-24 px-5" style="background:#F6F3F2;">
   <div class="max-w-3xl mx-auto">
     <div class="text-center mb-10 md:mb-14">
-      <h2 class="text-2xl md:text-4xl font-800 text-ink mb-2">מה תלמדי בסדנה?</h2>
-      <p class="text-gray-600 md:text-lg">את כל הסודות, מהבסיס ועד לתוצאה המושלמת</p>
+      <h2 class="text-2xl md:text-4xl font-800 text-ink mb-2">מה תלמדי בקורס?</h2>
+      <p class="text-gray-600 md:text-lg">את כל הסודות, מהבסיס ועד לבניה המושלמת</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
@@ -407,7 +514,7 @@
 </section>
 
 <!-- ══════════════════════════ PRICING ══════════════════════════ -->
-<section id="pricing" class="py-16 md:py-28 px-5 bg-white scroll-mt-4">
+<section id="pricing" class="py-16 md:py-28 px-5 bg-white scroll-mt-16">
   <div class="max-w-4xl mx-auto">
     <div class="text-center mb-10 md:mb-16">
       <h2 class="text-2xl md:text-4xl font-800 text-ink mb-2">בחרי את המסלול שלך</h2>
@@ -416,56 +523,57 @@
 
     <div class="flex flex-col md:grid md:grid-cols-2 gap-6 md:gap-8 items-start">
 
-      <!-- MAIN PRODUCT first on mobile (899) — md: second via order -->
-      <div class="card-star p-6 md:p-8 relative md:order-2">
+      <!-- ANCHOR / RECOMMENDED — now shown first -->
+      <div class="card-star p-6 md:p-8 relative">
         <div class="absolute -top-4 right-1/2 translate-x-1/2">
-          <span class="badge">הכי משתלם</span>
+          <span class="badge">המסלול המומלץ</span>
         </div>
-
-        <div class="mt-3 mb-1">
-          <span class="text-xs font-700 uppercase tracking-widest" style="color:#F0147D;">סדנה</span>
-        </div>
-        <h3 class="text-xl md:text-2xl font-800 mb-2 text-ink">סדנת צ'ארמים וקישוטים</h3>
-        <p class="text-gray-500 text-sm mb-5">4 שעות עיצוב מקצועי — תלמדי ליצור קישוטים מדהימים לציפורניים</p>
 
         <div class="mb-2">
-          <p class="font-800" style="font-size:3.5rem; line-height:1; color:#F0147D;">₪899</p>
-          <p class="text-sm text-gray-600 mt-1">לעומת ₪2,280 לקורס המלא — חיסכון של ₪1,381</p>
+          <span class="text-xs font-700 uppercase tracking-widest" style="color:#F0147D;">קורס מלא</span>
+        </div>
+        <h3 class="text-xl md:text-2xl font-800 mb-2 text-ink">NAILD IT TEENS</h3>
+        <p class="text-gray-600 text-sm mb-5">קורס מקצועי מלא לבניית ציפורניים — 6 עד 8 שעות לימוד בשיטת GEL EX</p>
+
+        <div class="mb-6">
+          <p class="text-gray-600 line-through text-base mb-1">₪3,690</p>
+          <p class="font-800" style="font-size:3.5rem; line-height:1; color:#F0147D;">₪2,860</p>
         </div>
 
         <div class="my-5 h-px" style="background:rgba(240,20,125,.15);"></div>
 
         <ul class="space-y-2 mb-7 text-sm text-gray-600">
-          <li class="flex items-center gap-2"><span style="color:#F0147D;">✓</span> 4 שעות סדנה אינטנסיבית</li>
-          <li class="flex items-center gap-2"><span style="color:#F0147D;">✓</span> צ'ארמים, מדבקות, נאילארט מקצועי</li>
-          <li class="flex items-center gap-2"><span style="color:#F0147D;">✓</span> תוצאות מיידיות ומרהיבות</li>
-          <li class="flex items-center gap-2 font-700" style="color:#F0147D;">✓ מקומות מוגבלים — ממהרות!</li>
+          <li class="flex items-center gap-2"><span style="color:#F0147D;">✓</span> 6 שעות לימוד בניה מקצועיות (GEL EX)</li>
+          <li class="flex items-center gap-2"><span style="color:#F0147D;">✓</span> הכנה, מניקור, בנייה, בגירות, מריחה</li>
+          <li class="flex items-center gap-2"><span style="color:#F0147D;">✓</span> 3 חודשי ליווי אישי לאחר הקורס</li>
+          <li class="flex items-center gap-2 font-700" style="color:#F0147D;"><span>✓</span> כוללת את סדנת הצ'ארמים (בשווי ₪899) — במתנה!</li>
+          <li class="flex items-center gap-2"><span style="color:#F0147D;">✓</span> תעודת סיום</li>
+          <li class="flex items-center gap-2 font-700" style="color:#F0147D;">✓ חוברות לימוד מלאה הביתה</li>
         </ul>
 
-        <a href="https://wa.me/972548787702" class="btn-pk block w-full text-center text-lg py-4">לשריון מקום ←</a>
+        <a href="https://wa.me/972548787702?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%A0%D7%95%D7%A1%D7%A4%D7%99%D7%9D%20%D7%A2%D7%9C%20%D7%A7%D7%95%D7%A8%D7%A1%20NAILD%20IT%20TEENS" class="btn-pk block w-full text-center text-lg py-4">לפרטים נוספים</a>
       </div>
 
-      <!-- ANCHOR — expensive, mobile: second, desktop: first via order -->
-      <div class="card p-6 md:p-8 md:order-1" style="opacity:.88;">
-        <div class="mb-2">
-          <span class="text-xs font-700 uppercase tracking-widest text-gray-600">קורס מלא</span>
+      <!-- WORKSHOP — now shown second -->
+      <div class="card p-6 md:p-8 relative" style="opacity:.88;">
+        <div class="mt-3 mb-1">
+          <span class="text-xs font-700 uppercase tracking-widest text-gray-600">סדנה</span>
         </div>
-        <h3 class="text-xl md:text-2xl font-800 mb-2 text-ink">NAILD IT TEENS</h3>
-        <p class="text-gray-600 text-sm mb-5">קורס מקצועי מלא לבניית ציפורניים — 6 שעות לימוד בשיטת GEL EX</p>
+        <h3 class="text-xl md:text-2xl font-800 mb-2 text-ink">סדנת צ'ארמים וקישוטים</h3>
+        <p class="text-gray-500 text-sm mb-5">4 שעות עיצוב מקצועי — תלמדי ליצור קישוטים מדהימים לציפורניים</p>
 
-        <div class="mb-6">
-          <p class="text-gray-600 line-through text-base mb-1">₪3,690</p>
-          <p class="font-800 text-gray-600" style="font-size:2.6rem; line-height:1;">₪2,280</p>
+        <div class="mb-2">
+          <p class="font-800 text-gray-600" style="font-size:2.6rem; line-height:1;">₪899</p>
         </div>
 
         <ul class="space-y-2 mb-7 text-sm text-gray-600">
-          <li class="flex items-center gap-2"><span class="text-gray-600" aria-hidden="true">✓</span> 6 שעות לימוד מקצועיות (GEL EX)</li>
-          <li class="flex items-center gap-2"><span class="text-gray-600" aria-hidden="true">✓</span> הכנה, מניקור, בנייה, פילה, סגירה</li>
-          <li class="flex items-center gap-2"><span class="text-gray-600" aria-hidden="true">✓</span> 3 חודשי ליווי אישי לאחר הקורס</li>
-          <li class="flex items-center gap-2"><span class="text-gray-600" aria-hidden="true">✓</span> כולל סדנת צ'ארמים (בונוס)</li>
+          <li class="flex items-center gap-2"><span class="text-gray-600" aria-hidden="true">✓</span> 4 שעות סדנה אינטנסיבית</li>
+          <li class="flex items-center gap-2"><span class="text-gray-600" aria-hidden="true">✓</span> צ'ארמים, מדבקות, נאילארט מקצועי</li>
+          <li class="flex items-center gap-2"><span class="text-gray-600" aria-hidden="true">✓</span> תוצאות מיידיות ומרהיבות</li>
+          <li class="flex items-center gap-2 font-700 text-gray-600">✓ מקומות מוגבלים — ממהרות!</li>
         </ul>
 
-        <a href="https://wa.me/972548787702?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%A0%D7%95%D7%A1%D7%A4%D7%99%D7%9D%20%D7%A2%D7%9C%20%D7%A7%D7%95%D7%A8%D7%A1%20NAILD%20IT%20TEENS" class="btn-ghost">לפרטים נוספים</a>
+        <a href="https://wa.me/972548787702" class="btn-ghost">לשריון מקום ←</a>
       </div>
     </div>
 
@@ -476,11 +584,11 @@
 </section>
 
 <!-- ══════════════════════════ TESTIMONIALS ══════════════════════════ -->
-<section class="py-14 md:py-24 px-5" style="background:#f1ece6;">
+<section id="testimonials" class="py-14 md:py-24 px-5 scroll-mt-16" style="background:#F6F3F2;">
   <div class="max-w-2xl mx-auto">
     <div class="text-center mb-10 md:mb-14">
-      <h2 class="text-2xl md:text-4xl font-800 text-ink mb-2">מה אומרות הבנות?</h2>
-      <p class="text-gray-600 text-sm md:text-base">ביקורות אמיתיות מתלמידות אמיתיות</p>
+      <h2 class="text-2xl md:text-4xl font-800 text-ink mb-2">מה אומרות בוגרות הקרוסים</h2>
+      <p class="text-gray-600 text-sm md:text-base">משתתפות ממליצות</p>
     </div>
 
     <div id="carousel" role="region" aria-label="ביקורות תלמידות">
@@ -506,7 +614,7 @@
                 <div class="w-9 h-9 rounded-full flex items-center justify-center font-800 text-white text-sm shrink-0" style="background:linear-gradient(135deg,#F0147D,#C00060);" aria-hidden="true">ש</div>
                 <div class="text-right">
                   <p class="font-700 text-sm text-ink">שלי הידנה</p>
-                  <p class="text-xs text-gray-600">תלמידת הסדנה</p>
+                  <p class="text-xs text-gray-600">קורס מניקור לק ג'ל ומבנה אנטומי + בניה חדשה ומילוי</p>
                 </div>
               </div>
             </div>
@@ -529,8 +637,8 @@
               <div class="flex items-center justify-center gap-3">
                 <div class="w-9 h-9 rounded-full flex items-center justify-center font-800 text-white text-sm shrink-0" style="background:linear-gradient(135deg,#F0147D,#C00060);" aria-hidden="true">נ</div>
                 <div class="text-right">
-                  <p class="font-700 text-sm text-ink">נועה, בת 15</p>
-                  <p class="text-xs text-gray-600">תלמידת הסדנה</p>
+                  <p class="font-700 text-sm text-ink">נועה בלומינשטיין</p>
+                  <p class="text-xs text-gray-600">קורס NAIL IT TEENS - בניית GEL-X</p>
                 </div>
               </div>
             </div>
@@ -553,8 +661,59 @@
               <div class="flex items-center justify-center gap-3">
                 <div class="w-9 h-9 rounded-full flex items-center justify-center font-800 text-white text-sm shrink-0" style="background:linear-gradient(135deg,#F0147D,#C00060);" aria-hidden="true">ת</div>
                 <div class="text-right">
-                  <p class="font-700 text-sm text-ink">תמר, בת 14</p>
-                  <p class="text-xs text-gray-600">תלמידת הסדנה</p>
+                  <p class="font-700 text-sm text-ink">תמר הרשקוביץ</p>
+                  <p class="text-xs text-gray-600">קורס NAIL IT TEENS - בניית GEL-X</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 4 -->
+          <div class="carousel-slide px-1">
+            <div class="card p-6 md:p-8 text-center">
+              <div class="flex justify-center gap-1 mb-4">
+                <svg class="star-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <p class="text-gray-600 text-sm md:text-base mb-5 italic">
+                "הי יעל חן, רציתי לשתף שאיילת חזרה מהקורס בניה הביתה בעננים!
+                היא מאד אוהבת אותך ומאד מתלהבת מהמקצוע, תודה!
+                היא גם רוצה ללמוד אצלכם לק ג׳ל על ציפורן טבעית, וגם לבצע אנטומי.
+                נשמח לשמוע יותר על המסלולים הנוספים 🙏🏼"
+              </p>
+              <div class="flex items-center justify-center gap-3">
+                <div class="w-9 h-9 rounded-full flex items-center justify-center font-800 text-white text-sm shrink-0" style="background:linear-gradient(135deg,#F0147D,#C00060);" aria-hidden="true">א</div>
+                <div class="text-right">
+                  <p class="font-700 text-sm text-ink">אופיר, אבא של איילת מזרחי</p>
+                  <p class="text-xs text-gray-600">הורה מרוצה</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 5 -->
+          <div class="carousel-slide px-1">
+            <div class="card p-6 md:p-8 text-center">
+              <div class="flex justify-center gap-1 mb-4">
+                <svg class="star-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <p class="text-gray-600 text-sm md:text-base mb-5 italic">
+                "יאאאאא יעל את באמת מלכה
+                אתמול חזרתי הביתה ועשיתי לחברה מניקור יצא מושלםםםםם!
+                ותודה רבה על הכל גם על הליווי וגם על ערכת המתנה ♥️"
+              </p>
+              <div class="flex items-center justify-center gap-3">
+                <div class="w-9 h-9 rounded-full flex items-center justify-center font-800 text-white text-sm shrink-0" style="background:linear-gradient(135deg,#F0147D,#C00060);" aria-hidden="true">ע</div>
+                <div class="text-right">
+                  <p class="font-700 text-sm text-ink">עלמה קריסטל</p>
+                  <p class="text-xs text-gray-600">קורס NAIL IT TEENS - בניית GEL-X</p>
                 </div>
               </div>
             </div>
@@ -565,13 +724,15 @@
 
       <!-- Controls -->
       <div class="flex items-center justify-center gap-4 mt-6">
-        <button class="carousel-arrow" id="prev" aria-label="ביקורת קודמת">›</button>
+        <button class="carousel-arrow" id="prev" aria-label="ביקורת קודמת">‹</button>
         <div class="flex gap-2 items-center" id="dots">
-          <button class="carousel-dot active" data-idx="0" aria-label="ביקורת 1 מתוך 3" aria-current="true"></button>
-          <button class="carousel-dot" data-idx="1" aria-label="ביקורת 2 מתוך 3" aria-current="false"></button>
-          <button class="carousel-dot" data-idx="2" aria-label="ביקורת 3 מתוך 3" aria-current="false"></button>
+          <button class="carousel-dot active" data-idx="0" aria-label="ביקורת 1 מתוך 5" aria-current="true"></button>
+          <button class="carousel-dot" data-idx="1" aria-label="ביקורת 2 מתוך 5" aria-current="false"></button>
+          <button class="carousel-dot" data-idx="2" aria-label="ביקורת 3 מתוך 5" aria-current="false"></button>
+          <button class="carousel-dot" data-idx="3" aria-label="ביקורת 4 מתוך 5" aria-current="false"></button>
+          <button class="carousel-dot" data-idx="4" aria-label="ביקורת 5 מתוך 5" aria-current="false"></button>
         </div>
-        <button class="carousel-arrow" id="next" aria-label="ביקורת הבאה">‹</button>
+        <button class="carousel-arrow" id="next" aria-label="ביקורת הבאה">›</button>
       </div>
     </div>
   </div>
@@ -652,7 +813,7 @@
 </main>
 
 <!-- ══════════════════════════ FOOTER ══════════════════════════ -->
-<footer class="py-12 px-5 text-center" style="background:#150510; color:rgba(255,255,255,.65);">
+<footer id="contact" class="py-12 px-5 text-center scroll-mt-16" style="background:#150510; color:rgba(255,255,255,.65);">
   <div class="max-w-xl mx-auto">
     <p class="text-white font-800 text-xl mb-1">רזי החן</p>
     <p class="text-sm mb-7">סטודיו ואקדמיה לציפורניים</p>
@@ -691,13 +852,57 @@
   </a>
 </div>
 
+<!-- ══════════════════════════ WHATSAPP POPUP ══════════════════════════ -->
+<div class="wa-popup" id="waPopup" role="dialog" aria-label="פנייה בוואטסאפ" aria-hidden="true">
+  <div class="wa-popup-head">
+    <div class="wa-popup-avatar" aria-hidden="true">
+      <svg width="20" height="20" fill="#fff" viewBox="0 0 24 24" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </div>
+    <div class="wa-popup-info">
+      <strong>רזי החן</strong>
+      <span>בדרך כלל עונות תוך כמה דקות</span>
+    </div>
+    <button type="button" class="wa-popup-close" id="waPopupClose" aria-label="סגירת חלון הוואטסאפ">&times;</button>
+  </div>
+  <p class="wa-popup-msg">היי! 👋 יש לך שאלה על הסדנה? כתבי לנו בוואטסאפ ונחזור אלייך מהר 💗</p>
+  <a href="https://wa.me/972548787702" class="wa-popup-cta" target="_blank" rel="noopener">
+    <svg width="18" height="18" fill="#fff" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    פתיחת צ'אט בוואטסאפ
+  </a>
+</div>
+
 <!-- ══════════════════════════ WHATSAPP FLOAT ══════════════════════════ -->
-<a href="https://wa.me/972548787702" class="wa-btn" aria-label="פנייה בוואטסאפ">
+<a href="https://wa.me/972548787702" target="_blank" rel="noopener" class="wa-btn" id="waBtn" aria-label="פנייה בוואטסאפ">
   <svg width="26" height="26" fill="#fff" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
 <!-- ══════════════════════════ JS ══════════════════════════ -->
 <script>
+  /* ── Nav menu ── */
+  const navToggle    = document.getElementById('nav-toggle');
+  const navMenu      = document.getElementById('nav-menu');
+  const navIconOpen  = document.getElementById('nav-icon-open');
+  const navIconClose = document.getElementById('nav-icon-close');
+
+  function closeNavMenu() {
+    navMenu.classList.add('hidden');
+    navToggle.setAttribute('aria-expanded', 'false');
+    navIconOpen.classList.remove('hidden');
+    navIconClose.classList.add('hidden');
+  }
+  function openNavMenu() {
+    navMenu.classList.remove('hidden');
+    navToggle.setAttribute('aria-expanded', 'true');
+    navIconOpen.classList.add('hidden');
+    navIconClose.classList.remove('hidden');
+  }
+  navToggle.addEventListener('click', () => {
+    const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+    isOpen ? closeNavMenu() : openNavMenu();
+  });
+  navMenu.querySelectorAll('.nav-link').forEach(a => a.addEventListener('click', closeNavMenu));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNavMenu(); });
+
   /* ── Carousel ── */
   const track      = document.getElementById('track');
   const dots       = document.querySelectorAll('.carousel-dot');
@@ -752,6 +957,36 @@
     stickyLink.tabIndex = hidden ? -1 : 0;
   }, { threshold: 0.2 });
   io.observe(pricingEl);
+
+  /* ── WhatsApp popup ── */
+  const waBtn         = document.getElementById('waBtn');
+  const waPopup       = document.getElementById('waPopup');
+  const waPopupClose  = document.getElementById('waPopupClose');
+
+  function openWaPopup() {
+    waPopup.classList.add('is-open');
+    waPopup.setAttribute('aria-hidden', 'false');
+  }
+  function closeWaPopup() {
+    waPopup.classList.remove('is-open');
+    waPopup.setAttribute('aria-hidden', 'true');
+  }
+  waPopupClose.addEventListener('click', e => { e.stopPropagation(); closeWaPopup(); });
+  waPopup.addEventListener('click', e => {
+    if (e.target.closest('#waPopupClose') || e.target.closest('.wa-popup-cta')) return;
+    window.open('https://wa.me/972548787702', '_blank', 'noopener');
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeWaPopup(); });
+  document.addEventListener('click', e => {
+    if (!waPopup.contains(e.target) && !waBtn.contains(e.target)) closeWaPopup();
+  });
+
+  if (!sessionStorage.getItem('waPopupShown') && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    setTimeout(() => {
+      openWaPopup();
+      sessionStorage.setItem('waPopupShown', '1');
+    }, 4000);
+  }
 </script>
 
 </body>
